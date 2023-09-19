@@ -1,6 +1,9 @@
 Código para criar numero sequencia em campo do repeater usando Elementor + Jetformbuilder no front.
 Alterar o nome do campo "itens_da_reuniao" para o campo desejado.
 
+Este script irá selecionar todos os campos que correspondem ao padrão itens_da_reuniao[X][_item] e atribuirá valores sequenciais a eles. 
+Sempre que o botão com a classe jet-form-builder-repeater__new for pressionado, ele irá esperar um pequeno delay (100ms) e, em seguida, reatribuirá os valores sequenciais.
+
 
 <script>
     jQuery(document).ready(function() {

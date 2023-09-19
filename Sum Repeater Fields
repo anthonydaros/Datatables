@@ -1,0 +1,52 @@
+O script irá:
+
+Identificar todos os campos _preco-orcamento-X existentes.
+Somar os valores desses campos.
+Atualizar o campo _total-orcamento com a soma.
+
+Este script irá somar todos os campos _preco-orcamento-X existentes e atualizar o campo _total-orcamento com a soma. Além disso, 
+sempre que você adicionar um novo repeater e um novo campo _preco-orcamento-X for criado, o script irá automaticamente recalcular a soma.
+
+
+
+
+<script>
+    jQuery(document).ready(function() {
+
+        // Função para substituir vírgulas por pontos nos campos de entrada
+        function replaceCommaWithDot() {
+            var currentValue = jQuery(this).val();
+            if (currentValue.includes(',')) {
+                jQuery(this).val(currentValue.replace(',', '.'));
+            }
+        }
+
+        // Função para realizar a soma dos campos _preco-orcamento-X
+        function calculateTotalOrcamento() {
+            var total = 0;
+            var index = 0;
+
+            // Loop para somar todos os campos _preco-orcamento-X existentes
+            while (true) {
+                var field = jQuery('#_preco-orcamento-' + index);
+                
+                if (field.length === 0) {
+                    break; // Se o campo não existir, interrompe o loop
+                }
+
+                var value = parseFloat(field.val()) || 0;
+                total += value;
+                index++;
+            }
+
+            // Atualiza o campo _total-orcamento com a soma
+            jQuery('#_total-orcamento').val(total);
+        }
+
+        // Adiciona event listener ao campo repeater para recalcular a soma sempre que um novo campo for adicionado
+        jQuery(document).on('input', 'input[id^="_preco-orcamento-"]', replaceCommaWithDot).on('input', 'input[id^="_preco-orcamento-"]', calculateTotalOrcamento);
+        
+        // Chama a função inicialmente para calcular o total
+        calculateTotalOrcamento();
+    });
+</script>
